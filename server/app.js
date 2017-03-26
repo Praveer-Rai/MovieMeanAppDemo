@@ -34,10 +34,10 @@ app.use(bodyParser.urlencoded({
 //passport
 
 var passport = require('passport');
-//var jwtConfig = require('./passport/jwtConfig');
+var jwtConfig = require('./passport/jwtStrategyConfig');
 
 app.use(passport.initialize());
-//jwtConfig(passport);
+jwtConfig(passport);
 
 
 /**
@@ -45,7 +45,9 @@ app.use(passport.initialize());
  */
 
 var userRoutes = require("./user/userRoutes");
+var movieRoutes = require("./movie/movieRoutes");
 
+app.use('/api', movieRoutes(passport));
 app.use('/', userRoutes(passport));
 
 
